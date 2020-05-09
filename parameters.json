@@ -8,22 +8,22 @@
 	
 	"parameters": [
 		{
-			"name": "Температура",
+			"name": "par1",
 			"min": 0,
 			"max": 30
 		},
 		{
-			"name": "Скорость",
+			"name": "par2",
 			"min": 60,
 			"max": 275
 		},
 		{
-			"name": "Давление",
+			"name": "par3",
 			"min": 960,
 			"max": 1040
 		},
 		{
-			"name": "Перегрузка",
+			"name": "par4",
 			"min": 0,
 			"max": 5
 		}
