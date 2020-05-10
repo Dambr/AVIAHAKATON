@@ -14,7 +14,7 @@ function drawTdColor(i, j, color){
 }
 function getDistance(vector1, vector2){
 	let distance = 0;
-	for (let key of names){
+	for (let key of ['r', 'g', 'b']){
 		distance += Math.pow((vector1[key] - vector2[key]), 2);
 	}
 	return distance;
@@ -82,11 +82,81 @@ function likeMasterVector(color){
 	let minDistance = Math.max(...distances);
 	let minIndex    = distances.indexOf(minDistance);
 
-	console.log(color, distances);
+	// console.log(color, distances);
 
 	return document.getElementById('master_vector').getElementsByTagName('tr')[minIndex].getElementsByTagName('td')[0].textContent;
 }
-
+function findMaster(){
+	masters = [
+		{
+			"Стремянки": 200, 
+			"Колодки": 200,
+			"Конусы": 0, 
+			"r": 255,
+			"g": 0,
+			"b": 0
+		},
+		{
+			"Стремянки": 0, 
+			"Колодки": 200,
+			"Конусы": 200, 
+			"r": 0,
+			"g": 255,
+			"b": 0
+		},
+		{
+			"Стремянки": 200,
+			"Колодки": 0,
+			"Конусы": 200, 
+			"r": 0,
+			"g": 0,
+			"b": 255
+		},
+		{
+			"Стремянки": 255,
+			"Колодки": 0,
+			"Конусы": 0, 
+			"r": 200,
+			"g": 200,
+			"b": 0
+		},
+		{
+			"Стремянки": 0,
+			"Колодки": 255,
+			"Конусы": 0, 
+			"r": 0,
+			"g": 200,
+			"b": 200
+		},
+		{
+			"Стремянки": 0,
+			"Колодки": 0,
+			"Конусы": 255, 
+			"r": 200,
+			"g": 0,
+			"b": 200
+		}
+	]
+	reslut = [0,0,0,0,0,0];
+	for (let i = 0; i < document.getElementsByTagName('td').length; i ++) {
+		let distances = [];
+		for (let j = 0; j < masters.length; j ++) {
+			distances.push(getDistance({
+				"r": Number(document.getElementsByTagName('td')[i].style.backgroundColor.replace("rgb", '').replace(')', '').replace('(', '').replace(' ','').replace(' ','').split(',')[0]),
+				"g": Number(document.getElementsByTagName('td')[i].style.backgroundColor.replace("rgb", '').replace(')', '').replace('(', '').replace(' ','').replace(' ','').split(',')[1]),
+				"b": Number(document.getElementsByTagName('td')[i].style.backgroundColor.replace("rgb", '').replace(')', '').replace('(', '').replace(' ','').replace(' ','').split(',')[2])
+			},
+			{
+				"r": masters[j].r,
+				"g": masters[j].g,
+				"b": masters[j].b
+			}));
+		}
+		// console.log(distances);
+		reslut[distances.indexOf(Math.min(...distances))]++;
+	}
+	return reslut;
+}
 function projection(vector){
 	for (let i = 0; i < td.length; i ++){
 		document.getElementsByTagName('td')[i].style.borderColor = 'white';
@@ -102,7 +172,8 @@ function projection(vector){
 	let minDistance = Math.min(...distances);
 	let minKoord    = koord[distances.indexOf(minDistance)];
 	document.getElementsByTagName('td')[getTdIndex(...minKoord)].style.borderColor = 'white';
-
+	
+	return document.getElementsByTagName('td')[getTdIndex(...minKoord)];
 	let problem = likeMasterVector(document.getElementsByTagName('td')[getTdIndex(...minKoord)].style.backgroundColor);
 
 	let solution = JSON.parse(document.getElementById('solution').textContent);
@@ -174,3 +245,18 @@ for (let i = 0; i < size; i ++){
 
 document.getElementById("image").style.width = document.getElementById("table").offsetWidth + "px";
 document.getElementById("image").style.height = document.getElementById("table").offsetHeight + "px";
+
+document.getElementById("stremyankiMax").textContent = findMaster()[0] * Math.floor(Math.sqrt(size));
+document.getElementById("stremyankiMin").textContent = findMaster()[1] * Math.floor(Math.sqrt(size));
+document.getElementById("kolodkiMax").textContent = findMaster()[2] * Math.floor(Math.sqrt(size));
+document.getElementById("kolodkiMin").textContent = findMaster()[3] * Math.floor(Math.sqrt(size));
+document.getElementById("konusiMax").textContent = findMaster()[4] * Math.floor(Math.sqrt(size));
+document.getElementById("konusiMin").textContent = findMaster()[5] * Math.floor(Math.sqrt(size));
+
+// document.getElementById("stremyankiMax").textContent = projection({
+// 	"Стремянки": 200, 
+// 	"Колодки": 200,
+// 	"Конусы": 0 
+// });
+
+console.log(findMaster())

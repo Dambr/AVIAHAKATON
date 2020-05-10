@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]> <html class="lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]> <html class="lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>Расчет необходимыс СНО</title>
+	<link rel="stylesheet" href="public/style/style.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+</head>
+<body>
+
+
+  <section class="container">
+    <div class="login">
+      <h1>Ввод данных для расчета</h1>
+      <form method="post" action="/main">
+        <div class="example-2">
+          <div class="form-group">
+            <div class="txt">Схема аэропорта</div>
+            <input type="file" name="map" id="file" class="input-file" onchange="fileInput()">
+            <label for="file" class="btn btn-tertiary js-labelFile">   
+              <i class="icon fa fa-check"></i>
+              <span class="js-fileName">Загрузить файл</span>
+              <div id="ok" style="position: absolute; top: 93px; left: 296px; font-size: 16pt; display: none; color: greenyellow;">✓</div>
+            </label>
+          </div>
+        </div>
+        <br>
+        <div class="txt">Прогнозировать до</div>
+        <input id="date" name="date" type="date" required="required">
+       
+        <p class="submit"><input type="submit" name="commit" value="Выполнить"></p>
+      </form>
+    </div>
+  </section>
+  <script>
+    function fileInput(){
+      document.getElementById("ok").style.display = "block";
+    }
+  </script>
+</body>
+</html>

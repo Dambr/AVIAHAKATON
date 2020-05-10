@@ -19,8 +19,11 @@ const connection = mysql.createConnection({
 app.set('view engine', 'ejs');
 app.use('/public', express.static('public'));
 
-
 app.get('*', function(req, res){
+	res.render('welcome.ejs');
+});
+app.post('/main', urlencodedParser, function(req, res){
+	console.log(req.body);
 	let array;
 	new Promise(function(response, reject){
 		connection.query("SELECT * FROM test", function(error, result){
@@ -31,7 +34,7 @@ app.get('*', function(req, res){
 	})
 	.then(
 		() => {
-			res.render('index.ejs', {array : JSON.stringify(array), size : Math.floor(Math.sqrt(array.length)), parameters: JSON.stringify(require('./parameters.json')), params: require('./parameters.json'), master_vector: require('./master_vector.json'), solution: JSON.stringify(require('./solution.json'))});
+			res.render('index.ejs', {array : JSON.stringify(array), size : Math.floor(Math.sqrt(array.length)), parameters: JSON.stringify(require('./parameters.json')), params: require('./parameters.json'), master_vector: require('./data.json'), solution: JSON.stringify(require('./solution.json')), date: req.body.date, map: req.body.map});
 		}
 	)
 });

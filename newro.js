@@ -115,7 +115,7 @@ function main(){
 		}
 	}
 
-	let master_vector = require('./master_vector.json');
+	let master_vector = require('./learn.json');
 
 	// Обучение сети
 	

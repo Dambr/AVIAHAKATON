@@ -8,24 +8,19 @@
 	
 	"parameters": [
 		{
-			"name": "par1",
+			"name": "Стремянки",
+			"min": 3,
+			"max": 15
+		},
+		{
+			"name": "Колодки",
 			"min": 0,
-			"max": 30
+			"max": 1
 		},
 		{
-			"name": "par2",
-			"min": 60,
-			"max": 275
-		},
-		{
-			"name": "par3",
-			"min": 960,
-			"max": 1040
-		},
-		{
-			"name": "par4",
-			"min": 0,
-			"max": 5
+			"name": "Конусы",
+			"min": 5,
+			"max": 8
 		}
 	]
 }
